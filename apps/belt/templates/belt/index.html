@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+  </head>
+  <body>
+    <a href="{% url 'books:show_review' %}">Add Book and Review</a>
+    <a href="{% url 'books:logout' %}">Logout</a>
+    <h3>Welcome, {{ first_name }}!</h3>
+    <h3>Recent Book Reviews:</h3>
+    {% for books in top_3_books %}
+    <p>{{books.book.title}}</p>
+    <p>Rating: {{books.rating}}</p>
+    <p><a href="{% url 'books:users' id=books.users.id %}">{{books.users.first_name}}</a>: {{books.review}}</p>
+    <p>{{books.created_at}}</p>
+    {% endfor %}
+    <h2>Other Books with Reveiws:</h2>
+    {% for books in all_books %}
+      <p><a href="{% url 'books:show_book_again' title=books.book.title %}">{{books.book.title}}</a></p>
+    {% endfor %}
+  </body>
+</html>
